@@ -8,7 +8,6 @@
 :root {
     --colore-nero: #111;
     --colore-grigio: #666;
-    --bordo-sottile: #ddd;
     --bordo-spesso: #333;
     --sfondo: #fff;
     --font: 'Helvetica Neue', Arial, sans-serif;
@@ -19,28 +18,29 @@ body {
     background: var(--sfondo);
     color: var(--colore-nero);
     line-height: 1.6;
+    scroll-behavior: smooth;
 }
 
-/* --- HEADER NAVIGAZIONE --- */
+/* --- HEADER --- */
 .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 1rem 2rem;
     background: var(--sfondo);
-    border-bottom: 3px solid var(--bordo-spesso);
+    border-bottom: 4px solid var(--bordo-spesso);
     position: sticky;
     top: 0;
     z-index: 100;
 }
 
-.header h1 {
-    font-size: 1.5rem;
+.header h1 a {
+    text-decoration: none;
+    color: var(--colore-nero);
+    font-size: 1.6rem;
     font-weight: 900;
-    letter-spacing: 1px;
 }
 
-/* --- MENU ORIZZONTALE --- */
 .nav-menu {
     display: flex;
     gap: 20px;
@@ -57,189 +57,229 @@ body {
     transition: 0.3s;
 }
 
-/* Effetto hover menu */
 .nav-menu a:hover {
     color: var(--colore-nero);
     border-color: var(--colore-nero);
 }
 
-/* --- LAYOUT PRINCIPALE --- */
+/* --- MAIN --- */
 .main-content {
-    max-width: 1000px;
+    max-width: 900px;
     margin: 0 auto;
-    padding: 40px 20px;
+    padding: 30px 20px;
 }
 
-/* --- SEZIONE HERO --- */
+/* --- SEZIONE HERO (Ridotta e centrata) --- */
 .hero {
     display: flex;
     align-items: center;
     gap: 20px;
     border: 3px solid var(--bordo-spesso);
     border-radius: 12px;
-    padding: 30px;
-    margin-bottom: 60px;
+    padding: 20px;
+    margin-bottom: 50px;
     flex-wrap: wrap;
 }
 
 .avatar {
-    width: 100px;
-    height: 100px;
+    width: 80px; /* Ridotta da 120px a 80px */
+    height: 80px;
     border-radius: 50%;
-    background: #f0f0f0;
     border: 3px solid var(--bordo-spesso);
+    overflow: hidden;
     flex-shrink: 0;
 }
 
-.hero-text h2 {
-    font-size: 2rem;
-    font-weight: 900;
+.avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
-.hero-text h3 {
-    color: var(--colore-grigio);
-    font-weight: bold;
-    margin-bottom: 10px;
+.hero-text {
+    flex: 1;
+    min-width: 200px;
 }
+
+.hero-text h2 { font-size: 1.6rem; font-weight: 900; }
+.hero-text h3 { font-size: 0.9rem; color: var(--colore-grigio); margin-bottom: 10px; text-transform: uppercase; }
+.hero-text p { font-size: 0.95rem; }
 
 .btn {
-    margin-left: auto;
     background: var(--colore-nero);
     color: var(--sfondo);
-    border: none;
-    padding: 12px 24px;
+    padding: 10px 20px;
     font-weight: 900;
-    cursor: pointer;
+    text-decoration: none;
     text-transform: uppercase;
     border-radius: 6px;
+    transition: 0.3s;
 }
 
-/* --- SEZIONI GENERALI --- */
-.section {
-    margin-bottom: 60px;
-}
+.btn:hover { background: var(--colore-grigio); }
+
+/* --- SEZIONE PROGETTI (Card Flip FLUIDE) --- */
+.section { margin-bottom: 50px; }
 
 .section-title {
     display: inline-block;
     font-weight: 900;
-    border-bottom: 4px solid var(--bordo-spesso);
-    margin-bottom: 25px;
+    font-size: 1.3rem;
+    border-bottom: 3px solid var(--bordo-spesso);
+    margin-bottom: 20px;
     padding-bottom: 5px;
-    text-transform: uppercase;
 }
 
-/* --- GRIGLIA PROGETTI --- */
+/* Griglia completamente responsive (da 4 a 1 colonna) */
 .projects-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    perspective: 1000px;
 }
 
-.card {
-    border: 3px solid var(--bordo-spesso);
-    border-radius: 12px;
-    padding: 40px 20px;
+/* Card fluida: l'altezza si adatta alla larghezza */
+.flip-card {
+    background-color: transparent;
+    width: 100%;
+    aspect-ratio: 4 / 3; /* Proporzione fissa */
+    cursor: pointer;
+}
+
+.flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
     text-align: center;
-    background: #fafafa;
-    font-size: 1.2rem;
-    font-weight: 900;
-    text-transform: uppercase;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
 }
 
-/* --- POST --- */
+.flip-card.is-flipped .flip-card-inner {
+    transform: rotateY(180deg);
+}
+
+.flip-card-front, .flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    border-radius: 10px;
+    border: 2px solid var(--bordo-spesso);
+    overflow: hidden;
+}
+
+.flip-card-front img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.flip-card-back {
+    background-color: var(--colore-nero);
+    color: var(--sfondo);
+    transform: rotateY(180deg);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 10px;
+    gap: 10px;
+}
+
+.flip-card-back h3 { font-size: 0.9rem; font-weight: 900; text-transform: uppercase; }
+.flip-card-back p { font-size: 0.75rem; line-height: 1.4; }
+
+/* --- SEZIONE POST (Ripristinata) --- */
 .section-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     flex-wrap: wrap;
     gap: 10px;
 }
 
 .filter {
     border: 2px solid var(--bordo-spesso);
-    padding: 6px 12px;
+    padding: 5px 10px;
     border-radius: 20px;
     font-weight: bold;
     text-transform: uppercase;
     font-size: 0.8rem;
 }
 
+.posts-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
 .post {
     border: 2px solid var(--bordo-spesso);
     border-radius: 10px;
-    padding: 20px;
+    padding: 15px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 15px;
     font-weight: bold;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
-/* --- FOOTER CONTATTI --- */
+/* --- FOOTER --- */
 .footer {
     border-top: 4px solid var(--bordo-spesso);
-    padding: 30px 40px;
+    padding: 20px;
     display: flex;
     justify-content: center;
-    gap: 30px;
-    flex-wrap: nowrap; /* Resta in linea il più possibile */
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
 }
 
 .footer a {
     text-decoration: none;
     color: var(--colore-grigio);
-    font-size: 1.2rem; /* Più grandi */
+    font-size: 1.1rem;
     font-weight: 800;
-    letter-spacing: 1px;
+    padding: 5px 10px;
     transition: 0.3s;
 }
 
 .footer a:hover {
     color: var(--colore-nero);
-    transform: translateY(-2px);
+    border-bottom: 2px solid var(--colore-nero);
 }
 
 /* --- RESPONSIVE MOBILE --- */
 @media (max-width: 768px) {
-    
-    /* Header e Menu */
     .header {
         flex-direction: column;
-        gap: 15px;
         align-items: flex-start;
+        gap: 10px;
+        padding: 1rem;
     }
-    
+
     .nav-menu {
         width: 100%;
-        overflow-x: auto; /* Scorrevole se troppo lungo */
+        overflow-x: auto;
         padding-bottom: 5px;
     }
 
-    .nav-menu a {
-        white-space: nowrap;
-        font-size: 0.8rem;
-    }
+    .nav-menu a { white-space: nowrap; font-size: 0.8rem; }
 
-    /* Hero */
     .hero {
         flex-direction: column;
         text-align: center;
-    }
-
-    .btn {
-        margin-left: 0;
-        width: 100%;
-    }
-
-    /* Footer: Se serve va a capo, ma mantiene la linea */
-    .footer {
-        flex-wrap: wrap; 
         gap: 15px;
-        padding: 20px;
     }
-    
-    .footer a {
-        font-size: 1rem;
+
+    .btn { width: 100%; text-align: center; }
+
+    /* Su schermi piccoli, le card si dispongono in 1 o 2 colonne */
+    .projects-grid {
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
     }
 }
