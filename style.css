@@ -1,4 +1,4 @@
-/* --- RESET E VARIABILI GLOBALI --- */
+/* --- RESET GLOBALE --- */
 * {
     margin: 0;
     padding: 0;
@@ -8,126 +8,127 @@
 :root {
     --colore-nero: #111;
     --colore-grigio: #666;
-    --colore-bordo: #ddd;
-    --colore-sfondo: #fff;
-    --font-base: 'Helvetica Neue', Arial, sans-serif;
+    --bordo-sottile: #ddd;
+    --bordo-spesso: #333;
+    --sfondo: #fff;
+    --font: 'Helvetica Neue', Arial, sans-serif;
 }
 
 body {
-    font-family: var(--font-base);
-    background-color: var(--colore-sfondo);
+    font-family: var(--font);
+    background: var(--sfondo);
     color: var(--colore-nero);
     line-height: 1.6;
-    overflow-x: hidden; /* Evita scroll orizzontale accidentale */
 }
 
-/* --- HEADER --- */
+/* --- HEADER NAVIGAZIONE --- */
 .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 1rem 2rem;
-    border-bottom: 2px solid var(--colore-nero);
-    background-color: var(--colore-sfondo);
+    background: var(--sfondo);
+    border-bottom: 3px solid var(--bordo-spesso);
     position: sticky;
     top: 0;
     z-index: 100;
 }
 
 .header h1 {
-    font-size: clamp(1rem, 4vw, 1.5rem);
-    font-weight: bold;
+    font-size: 1.5rem;
+    font-weight: 900;
     letter-spacing: 1px;
-    border: 1px solid var(--colore-nero);
-    padding: 5px 15px;
-    text-align: center;
 }
 
-/* --- LAYOUT PRINCIPALE (FLEX) --- */
-.layout-container {
+/* --- MENU ORIZZONTALE --- */
+.nav-menu {
     display: flex;
-    flex-wrap: wrap;
-    min-height: calc(100vh - 80px);
+    gap: 20px;
 }
 
-/* --- SIDEBAR --- */
-.sidebar {
-    width: 100%;
-    border-bottom: 1px solid var(--colore-bordo);
-    padding: 10px;
-}
-
-.sidebar nav {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    gap: 10px;
-}
-
-.sidebar a {
+.nav-menu a {
     text-decoration: none;
     color: var(--colore-grigio);
+    font-weight: bold;
+    font-size: 0.9rem;
     text-transform: uppercase;
-    font-size: clamp(0.7rem, 2vw, 0.9rem);
-    white-space: nowrap;
+    padding: 5px 10px;
+    border: 2px solid transparent;
+    transition: 0.3s;
 }
 
-/* --- CONTENUTO PRINCIPALE --- */
+/* Effetto hover menu */
+.nav-menu a:hover {
+    color: var(--colore-nero);
+    border-color: var(--colore-nero);
+}
+
+/* --- LAYOUT PRINCIPALE --- */
 .main-content {
-    flex: 1;
-    padding: clamp(20px, 5vw, 40px);
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 40px 20px;
 }
 
-/* --- HERO SECTION --- */
+/* --- SEZIONE HERO --- */
 .hero {
     display: flex;
     align-items: center;
     gap: 20px;
-    border: 1px solid var(--colore-bordo);
-    border-radius: 8px;
-    padding: 20px;
-    margin-bottom: 50px;
+    border: 3px solid var(--bordo-spesso);
+    border-radius: 12px;
+    padding: 30px;
+    margin-bottom: 60px;
     flex-wrap: wrap;
 }
 
 .avatar {
-    width: clamp(60px, 15vw, 100px);
-    aspect-ratio: 1/1;
+    width: 100px;
+    height: 100px;
     border-radius: 50%;
-    background-color: #f0f0f0;
-    border: 1px solid var(--colore-nero);
+    background: #f0f0f0;
+    border: 3px solid var(--bordo-spesso);
     flex-shrink: 0;
 }
 
-.hero-text {
-    flex: 1;
-    min-width: 200px;
+.hero-text h2 {
+    font-size: 2rem;
+    font-weight: 900;
 }
 
-.hero-text h2 { font-size: clamp(1.2rem, 5vw, 2rem); margin-bottom: 5px; }
-.hero-text h3 { font-size: 1rem; color: var(--colore-grigio); margin-bottom: 10px; }
+.hero-text h3 {
+    color: var(--colore-grigio);
+    font-weight: bold;
+    margin-bottom: 10px;
+}
 
 .btn {
-    background: transparent;
-    border: 1px solid var(--colore-nero);
-    padding: 10px 20px;
+    margin-left: auto;
+    background: var(--colore-nero);
+    color: var(--sfondo);
+    border: none;
+    padding: 12px 24px;
+    font-weight: 900;
     cursor: pointer;
     text-transform: uppercase;
-    align-self: center;
+    border-radius: 6px;
 }
 
-/* --- SEZIONI E PROGETTI --- */
-.section { margin-bottom: 50px; }
+/* --- SEZIONI GENERALI --- */
+.section {
+    margin-bottom: 60px;
+}
 
 .section-title {
-    border-bottom: 2px solid var(--colore-nero);
     display: inline-block;
-    margin-bottom: 20px;
+    font-weight: 900;
+    border-bottom: 4px solid var(--bordo-spesso);
+    margin-bottom: 25px;
     padding-bottom: 5px;
     text-transform: uppercase;
 }
 
-/* GRIGLIA FLUIDA: 2 colonne su desktop, 1 su mobile */
+/* --- GRIGLIA PROGETTI --- */
 .projects-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -135,16 +136,15 @@ body {
 }
 
 .card {
-    border: 1px solid var(--colore-bordo);
-    border-radius: 8px;
-    padding: 30px 20px;
+    border: 3px solid var(--bordo-spesso);
+    border-radius: 12px;
+    padding: 40px 20px;
     text-align: center;
+    background: #fafafa;
+    font-size: 1.2rem;
+    font-weight: 900;
     text-transform: uppercase;
-    background-color: #fafafa;
-    transition: all 0.3s;
 }
-
-.card:hover { border-color: var(--colore-nero); }
 
 /* --- POST --- */
 .section-header {
@@ -152,65 +152,94 @@ body {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
-    gap: 10px;
     flex-wrap: wrap;
+    gap: 10px;
 }
 
 .filter {
-    font-size: 0.8rem;
-    border: 1px solid var(--colore-bordo);
-    padding: 5px 10px;
+    border: 2px solid var(--bordo-spesso);
+    padding: 6px 12px;
     border-radius: 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 0.8rem;
 }
 
-.posts-list { display: flex; flex-direction: column; gap: 20px; }
-
 .post {
-    border: 1px solid var(--colore-bordo);
-    border-radius: 8px;
+    border: 2px solid var(--bordo-spesso);
+    border-radius: 10px;
     padding: 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-wrap: wrap;
-    gap: 10px;
+    margin-bottom: 15px;
+    font-weight: bold;
 }
 
-/* --- FOOTER --- */
+/* --- FOOTER CONTATTI --- */
 .footer {
-    border-top: 2px solid var(--colore-nero);
-    padding: 20px;
+    border-top: 4px solid var(--bordo-spesso);
+    padding: 30px 40px;
     display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    gap: 15px;
-    font-size: clamp(0.7rem, 2vw, 0.9rem);
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: nowrap; /* Resta in linea il più possibile */
 }
 
-/* --- MEDIA QUERIES ESPLICITE (Breakpoints tipici) --- */
-/* Tablet (da 768px in su): torna la sidebar verticale */
-@media (min-width: 768px) {
-    .layout-container { flex-wrap: nowrap; }
-    .sidebar {
-        width: 200px;
-        border-right: 1px solid var(--colore-bordo);
-        border-bottom: none;
-        padding: 20px;
-        position: sticky;
-        top: 60px;
-        height: calc(100vh - 60px);
-    }
-    .sidebar nav {
+.footer a {
+    text-decoration: none;
+    color: var(--colore-grigio);
+    font-size: 1.2rem; /* Più grandi */
+    font-weight: 800;
+    letter-spacing: 1px;
+    transition: 0.3s;
+}
+
+.footer a:hover {
+    color: var(--colore-nero);
+    transform: translateY(-2px);
+}
+
+/* --- RESPONSIVE MOBILE --- */
+@media (max-width: 768px) {
+    
+    /* Header e Menu */
+    .header {
         flex-direction: column;
         gap: 15px;
+        align-items: flex-start;
     }
-    .hero { flex-wrap: nowrap; }
-    .btn { margin-left: auto; }
-}
+    
+    .nav-menu {
+        width: 100%;
+        overflow-x: auto; /* Scorrevole se troppo lungo */
+        padding-bottom: 5px;
+    }
 
-/* Telefono piccolo (max 480px): Riduce ulteriormente gli spazi */
-@media (max-width: 480px) {
-    .header { padding: 0.8rem 1rem; }
-    .header h1 { font-size: 1rem; }
-    .footer { flex-direction: column; align-items: center; }
+    .nav-menu a {
+        white-space: nowrap;
+        font-size: 0.8rem;
+    }
+
+    /* Hero */
+    .hero {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .btn {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    /* Footer: Se serve va a capo, ma mantiene la linea */
+    .footer {
+        flex-wrap: wrap; 
+        gap: 15px;
+        padding: 20px;
+    }
+    
+    .footer a {
+        font-size: 1rem;
+    }
 }
